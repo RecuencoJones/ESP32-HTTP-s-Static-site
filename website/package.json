@@ -4,7 +4,7 @@
         "start": "npm run dev",
         "dev": "vite",
         "build": "vite build",
-        "build:esp32": "vite build --outDir ../data/public --emptyOutDir"
+        "build:esp32": "vite build --outDir ../data/w --emptyOutDir"
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "1.2.2",

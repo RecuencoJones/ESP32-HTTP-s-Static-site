@@ -2,7 +2,19 @@
 #include <SPIFFS.h>
 #include "Static.hpp"
 
-#define DIR_PUBLIC "/public"
+#define DIR_PUBLIC "/w"
+
+String getContentType(String filename) {
+    if (filename.endsWith(".html")) {
+        return "text/html";
+    } else if (filename.endsWith(".js")) {
+        return "text/javascript";
+    } else if (filename.endsWith(".css")) {
+        return "text/css";
+    } else {
+        return "application/octet-stream";
+    }
+}
 
 // Implementation reference
 // https://github.com/fhessel/esp32_https_server/blob/de1876cf6fe717cf236ad6603a97e88f22e38d62/examples/REST-API/REST-API.ino#L305
@@ -38,7 +50,7 @@ void getStatic(HTTPRequest * req, HTTPResponse * res) {
     res->setStatusCode(200);
     res->setStatusText("Ok");
     res->setHeader("Content-Length", httpsserver::intToString(file.size()));
-    res->setHeader("Content-Type", "text/html");
+    res->setHeader("Content-Type", getContentType(filename).c_str());
 
     uint8_t buffer[256];
     size_t length = 0;
